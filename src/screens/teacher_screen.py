@@ -17,7 +17,7 @@ from datetime import datetime
 
 
 def teacher_screen():
-
+    st.space()
     style_background_dashboard()
     style_base_layout()
 
@@ -299,7 +299,7 @@ def teacher_screen_login():
             st.session_state['login_type'] = None
             st.rerun()
 
-    st.header('Login using password', text_alignment='center')
+    st.header('Login using password')
     st.space()
     st.space()
 
