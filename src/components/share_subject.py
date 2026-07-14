@@ -3,33 +3,25 @@ from src.database.db import create_subject
 import segno
 import io
 
-
-
 @st.dialog("Share Subject Link")
-def share_subject_dialog(subject_name,subject_code):
-    app_domain = "attendanceprovider-main.streamlit.app"
+def share_subject_dialog(subject_name, subject_code):
+    app_domain = "https://streamlit.app"
     join_url = f"{app_domain}/?join-code={subject_code}"
 
-    st.header("Scan to Join")
+    st.header(f"Share: {subject_name}")  
+    
     qr = segno.make(join_url)
-
     out = io.BytesIO()
+    qr.save(out, kind='png', scale=10, border=1)
 
-    qr.save(out,kind='png',scale=10,border=1)
-
-    col1,col2 = st.columns(2)
+    col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("### Copy Link")
-        st.code(join_url,language="text")
-        st.code(subject_code,language="text")
-        st.info('Copy this link to share on whatspp or other platform')
+        st.code(join_url, language="text")
+        st.code(subject_code, language="text")
+        st.info('Copy this link to share on WhatsApp or other platforms')
 
     with col2:
         st.markdown('### Scan to Join')
-        st.image(out.getvalue(),caption= 'QRCODE for class join')
-
-
-
-
-
+        st.image(out.getvalue(), caption='QR CODE for class join', use_container_width=True)
